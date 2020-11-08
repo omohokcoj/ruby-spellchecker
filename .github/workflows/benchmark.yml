@@ -1,0 +1,14 @@
+name: Benchmark
+on: push
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby 2.6.0
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6.0
+      - name: Run benchmarks
+        run: ruby benchmark/benchmark.rb
