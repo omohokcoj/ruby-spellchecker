@@ -1,5 +1,7 @@
 # Ruby Spellchecker
 
+Fast ruby spelling and grammar checker that can be used for autocorrection. Used by [SiteInspector](http://github.com/siteinspector/siteinspector).
+
 ## Installation
 
 Add this line to your application's Gemfile:

@@ -6,6 +6,8 @@ RSpec.describe Spellchecker::Tokenizer do
       text = <<~TEXT.strip
         Mail Attachment Support Viewable document types (apple.com)
         .jpg, .tiff, .gif (images); .doc and .docx (Microsoft Word); .htm and .html (web pages); .key (Keynote); .numbers (Numbers); .pages (Pages); .pdf (Preview and Adobe Acrobat); .ppt and .pptx (Microsoft PowerPoint); .txt (text); .rtf (rich text format); .vcf (contact information); .xls and .xlsx (Microsoft Excel); .zip; .ics; .usdz (USDZ-Universal).
+        text
+        text
       TEXT
 
       expect(described_class.call(text).map(&:text)).to eq(
@@ -17,7 +19,7 @@ RSpec.describe Spellchecker::Tokenizer do
          '(', 'Microsoft', 'PowerPoint', ')', ';', '.txt', '(', 'text', ')', ';', '.rtf', '(', 'rich',
          'text', 'format', ')', ';', '.vcf', '(', 'contact', 'information', ')', ';', '.xls', 'and',
          '.xlsx', '(', 'Microsoft', 'Excel', ')', ';', '.zip', ';', '.ics', ';', '.usdz', '(',
-         'USDZ-Universal', ')', '.']
+         'USDZ-Universal', ')', '.', "\n", 'text', "\n", 'text']
       )
     end
   end

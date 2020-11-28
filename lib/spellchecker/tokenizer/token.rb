@@ -30,7 +30,7 @@ module Spellchecker
 
       # @return [String]
       def inspect
-        "#<#{self.class} ('#{text}', #{position})>"
+        "#<#{self.class} (#{text.inspect}, #{position})>"
       end
 
       # @return [String]

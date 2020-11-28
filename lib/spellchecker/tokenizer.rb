@@ -50,7 +50,7 @@ module Spellchecker
           if acc.empty? && char == DOT && is_next_wordchar
             pos = i
             acc << char
-          elsif !word_char?(chars[i - 1]) || !is_next_wordchar
+          elsif !word_char?(chars[i - 1]) || !is_next_wordchar || char == LINEBREAK
             list << Token.new(acc.join, pos) unless acc.empty?
             list << Token.new(char, i)
 
