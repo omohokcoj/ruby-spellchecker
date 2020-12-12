@@ -11,7 +11,7 @@ module Spellchecker
       # @return [Hash<Array<String>, String>]
       def all
         @all || MUTEX.synchronize do
-          @all ||= CSV.parse(PATH.read).to_h.transform_keys { |e| e.split(' ') }
+          @all ||= CSV.parse(PATH.read).to_h.transform_keys(&:split)
         end
       end
 

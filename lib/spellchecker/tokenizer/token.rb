@@ -43,6 +43,21 @@ module Spellchecker
         @capital ||= text.match?(/\A[A-Z]/)
       end
 
+      # @return [Boolean]
+      def word?
+        @word ||= text.length > 1 || text.match?(/\w/)
+      end
+
+      # @return [Boolean]
+      def digit?
+        @digit ||= text.match?(/\A\d+\z/)
+      end
+
+      # @return [Boolean]
+      def dot?
+        @dot ||= text == Tokenizer::DOT
+      end
+
       # @return [String]
       def downcased
         @downcased ||= text.downcase

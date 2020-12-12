@@ -16,7 +16,7 @@ module Spellchecker
     SIMPLE_POST = ['!', '?', ',', ':', ';', '.'].freeze
     PAIR_PRE = ['(', '{', '[', '<', '«', '„', '‘'].freeze
     PAIR_POST = [')', '}', ']', '>', '»', '“', '’'].freeze
-    PRE_N_POST = ['"', "'", '`'].freeze
+    PRE_N_POST = ['"', "'", '`', '*'].freeze
 
     SPLITTABLES = SIMPLE_PRE + SIMPLE_POST + PAIR_PRE + PAIR_POST + PRE_N_POST
 

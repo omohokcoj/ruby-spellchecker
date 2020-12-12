@@ -6,6 +6,9 @@ module Spellchecker
     ABBREVIATION_REGEXP = /\A(?:[A-Z]{2,4})|(?:[A-Z][a-z])\z/.freeze
 
     LENGTH_LIMIT = 2
+    ABBREVIATION_LENGTH = 2
+    NUMBER_SHORTENING_SUFFIX = 'th'
+    SHORTENINGS = Set.new(%w[ver]).freeze
 
     module_function
 
@@ -20,7 +23,7 @@ module Spellchecker
 
       return unless correction
       return if PROPER_NAME_REGEXP.match?(word)
-      return if ABBREVIATION_REGEXP.match?(word)
+      return if abbreviation?(token) || shortening?(token)
       return if Dictionaries::EnglishWords.include?(Utils.replace_quote(word))
 
       return if token.capital? && proper_noun?(word)
@@ -37,6 +40,26 @@ module Spellchecker
       Dictionaries::HumanNames.include?(word) ||
         Dictionaries::CompanyNames.include?(word) ||
         Dictionaries::UsToponyms.include?(word)
+    end
+
+    # @param token [Spellchecker::Tokenizer::Token]
+    # @return [Boolean]
+    def abbreviation?(token)
+      return true if ABBREVIATION_REGEXP.match?(token.text)
+      return true if token.text.length <= ABBREVIATION_LENGTH &&
+                     !token.prev.word? && !token.next.word?
+
+      false
+    end
+
+    # @param token [Spellchecker::Tokenizer::Token]
+    # @return [Boolean]
+    def shortening?(token)
+      return true if token.text == NUMBER_SHORTENING_SUFFIX && token.prev.digit?
+      return true if SHORTENINGS.include?(token.downcased) &&
+                     (token.next.dot? || token.next.digit?)
+
+      false
     end
   end
 end
