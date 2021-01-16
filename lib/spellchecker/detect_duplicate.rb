@@ -13,7 +13,7 @@ module Spellchecker
          highly root whoa knock check woof bounce bouncy
          million tut wow mola paw hubba histrio cha nom
          chop same extra more bang big go no pom la ah
-         ha oh ew]
+         ha oh ew hey]
     ).freeze
 
     SKIP_PHRASES = Set.new(['try and', 'and try', 'and again', 'again and',
@@ -47,7 +47,6 @@ module Spellchecker
       text, correction = find_duplicate(t1, t2, t3, t4)
 
       return unless text
-      return if t2.capital? || t3.capital?
       return if SKIP_PHRASES.include?(correction.downcase)
       return unless Dictionaries::EnglishWords.include?(t2.text)
 
@@ -66,9 +65,9 @@ module Spellchecker
     # @param t4 [Spellchecker::Tokenizer::Token]
     # @return [Spellchecker::Mistake, nil]
     def find_duplicate(t1, t2, t3, t4)
-      if t1.downcased == t2.downcased
+      if t1.downcased == t2.downcased && !t2.capital? && !t2.digit?
         [[t1, t2].map(&:text).join(' '), t1.text]
-      elsif [t1.downcased, t2.downcased] == [t3.downcased, t4.downcased]
+      elsif [t1.downcased, t2.downcased] == [t3.downcased, t4.downcased] && !t3.capital? && !t3.digit?
         [[t1, t2, t3, t4].map(&:text).join(' '), [t1, t2].map(&:text).join(' ')]
       end
     end

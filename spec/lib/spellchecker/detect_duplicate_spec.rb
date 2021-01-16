@@ -60,5 +60,13 @@ RSpec.describe Spellchecker::DetectDuplicate do
         expect(described_class.call(token)).to be_nil
       end
     end
+
+    context do
+      let(:text) { '12 x 12 x' }
+
+      it 'does not digits duplicate' do
+        expect(described_class.call(token)).to be_nil
+      end
+    end
   end
 end
